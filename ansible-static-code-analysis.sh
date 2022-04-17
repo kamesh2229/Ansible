@@ -1,6 +1,5 @@
 #!/bin/bash 
 
-cd /Users/eprkame/ansible/Ansible
 echo $PWD
 
 for file in * ; do 
