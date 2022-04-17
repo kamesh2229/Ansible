@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Static Analysis') {
             steps { 
-                sh 'ansible-static-code-analysis.sh'
+                sh './ansible-static-code-analysis.sh'
     }
   }
  }

@@ -7,7 +7,7 @@
    - vars/vars.yaml
   tasks:
   - debug:
-      var: ansible_os_family
+    var: ansible_os_family
  
 
   - name: Show facts available on the system
@@ -25,8 +25,12 @@
 
   - name: Install Docker
     yum:
-      name: docker-ce
+      name: '{{ item }}'
       state: present
+    loop:
+      - slirp4netns
+      - container-selinux
+      - fuse-overlayfs
 
   - name: Install Pip
     yum:
