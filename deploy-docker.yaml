@@ -1,0 +1,37 @@
+---
+
+
+- hosts: all
+  become: true
+  vars_files:
+   - vars/vars.yaml
+  tasks:
+  - debug:
+      var: ansible_os_family
+ 
+
+  - name: Show facts available on the system
+    ansible.builtin.debug:
+      var: ansible_facts
+
+  - name: "create yum repository for docker"
+    yum_repository:
+      name: docker-repo
+      description: "Repo for docker"
+      baseurl: "https://download.docker.com/linux/centos/7/x86_64/stable/"
+      enabled: yes
+      repo_gpgcheck: no
+    when: ansible_facts['os_family'] == 'RedHat'
+
+  - name: Install Docker
+    yum:
+      name: docker-ce
+      state: present
+
+  - name: Install Pip
+    yum:
+      name: "python3-pip"
+      state: present
+      update_cache: true
+
+
