@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  remote_user: ec2-user
+  become: true
+  tasks:
+  - package:
+     name: httpd
+     state: present
+  - service: 
+     name: httpd
+     state: started
+     enabled: yes
+
+
+
