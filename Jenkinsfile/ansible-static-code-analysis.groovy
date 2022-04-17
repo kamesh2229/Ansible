@@ -5,8 +5,10 @@ pipeline {
 
     stages {
         stage('Static Analysis') {
-            steps { 
-                sh './ansible-static-code-analysis.sh'
+            steps {
+                sh 'pwd'
+                sh  'cd /Users/eprkame/ansible/Ansible' 
+                sh '/Users/eprkame/ansible/Ansible/ansible-static-code-analysis.sh'
     }
   }
  }
