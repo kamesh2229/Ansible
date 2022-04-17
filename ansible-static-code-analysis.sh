@@ -10,6 +10,7 @@ for file in * ; do
        if [ "${file: -5}" == ".yaml" ]
      then
         echo "yaml file is found" 
+        pwd
         yq $file
   fi
 fi
