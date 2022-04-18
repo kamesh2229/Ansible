@@ -7,9 +7,9 @@ pipeline {
         stage('Checkout') {
          steps {
            script {
-              git clone https://github.com/kamesh2229/Ansible.git
-              sh "ls -lrt"
-              sh "git branch -a"
+               git clone https://github.com/kamesh2229/Ansible.git
+               sh "ls -lrt"
+               sh "git branch -a"
              }
           }
         }
