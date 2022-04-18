@@ -16,7 +16,10 @@ pipeline {
         stage('Static Analysis') {
             steps {
                 sh 'pwd'
-                sh "${WORKSPACE}/Jenkinsfile/ansible-static-code-analysis.sh"
+                sh '''#!/bin/bash
+                      for files in ${WORKSPACE}/*.yaml; do
+                      yq $file
+                      done;'''
     }
   }
  }
