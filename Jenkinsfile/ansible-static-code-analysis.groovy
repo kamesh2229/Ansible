@@ -3,8 +3,8 @@
 pipeline {
     agent any 
     tools {
-      yq
-      maven 
+      yq  'yq 4.24.5'
+      maven 'Maven 3.3.9' 
     }
 
     stages {
