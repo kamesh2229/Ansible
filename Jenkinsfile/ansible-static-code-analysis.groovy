@@ -19,7 +19,7 @@ pipeline {
             }
             steps {
                 sh 'pwd'
-                sh ${CURR_DIR}/'Jenkinsfile/ansible-static-code-analysis.sh'
+                sh "${CURR_DIR}/'Jenkinsfile/ansible-static-code-analysis.sh'"
     }
   }
  }
