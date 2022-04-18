@@ -14,12 +14,9 @@ pipeline {
           }
         }
         stage('Static Analysis') {
-            environment {
-               CURR_DIR = sh 'pwd'
-            }
             steps {
                 sh 'pwd'
-                sh "${CURR_DIR}/'Jenkinsfile/ansible-static-code-analysis.sh'"
+                sh "${WORKSPACE}/Jenkinsfile/ansible-static-code-analysis.sh"
     }
   }
  }
