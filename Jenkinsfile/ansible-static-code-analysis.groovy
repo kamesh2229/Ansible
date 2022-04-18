@@ -2,6 +2,9 @@
 
 pipeline {
     agent any 
+    tools {
+      yq
+    }
 
     stages {
         stage('Checkout') {
