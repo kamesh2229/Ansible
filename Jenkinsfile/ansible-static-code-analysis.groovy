@@ -21,10 +21,12 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh '''#!/bin/bash
-                      for files in ${WORKSPACE}/*.yaml; do
-                      yq $file
-                      mvn
-                      done;'''
+                       export MAVEN_HOME=/opt/homebrew/Cellar/maven/3.8.5/libexec
+                       export PATH=$PATH:$MAVEN_HOME/bin
+                       for files in ${WORKSPACE}/*.yaml; do
+                       yq $file
+                       mvn
+                       done;'''
     }
   }
  }
