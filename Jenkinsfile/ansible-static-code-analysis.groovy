@@ -4,6 +4,14 @@ pipeline {
     agent any 
 
     stages {
+        stage('Checkout') {
+         steps {
+           script {
+              git clone https://github.com/kamesh2229/Ansible.git
+              sh "ls -lrt"
+              sh "git branch -a"
+             }
+          }
         stage('Static Analysis') {
             steps {
                 sh 'pwd'
