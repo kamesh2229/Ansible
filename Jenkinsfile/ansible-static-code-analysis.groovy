@@ -16,7 +16,7 @@ pipeline {
         stage('Static Analysis') {
             steps {
                 sh 'pwd'
-                sh '/Users/eprkame/ansible/Ansible/ansible-static-code-analysis.sh'
+                sh $PWD'Jenkinsfile/ansible-static-code-analysis.sh'
     }
   }
  }
