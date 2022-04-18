@@ -12,6 +12,7 @@ pipeline {
               sh "git branch -a"
              }
           }
+        }
         stage('Static Analysis') {
             steps {
                 sh 'pwd'
