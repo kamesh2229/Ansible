@@ -2,7 +2,7 @@
 
 echo $PWD
 
-for file in * ; do 
+for file in ${WORKSPACE} ; do 
      if [ -d $file ]
      then 
         echo "This is a directory"
@@ -10,7 +10,6 @@ for file in * ; do
        if [ "${file: -5}" == ".yaml" ]
      then
         echo "yaml file is found" 
-        pwd
         yq $file
   fi
 fi
