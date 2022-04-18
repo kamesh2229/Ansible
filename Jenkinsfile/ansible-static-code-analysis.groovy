@@ -19,6 +19,7 @@ pipeline {
                 sh '''#!/bin/bash
                       for files in ${WORKSPACE}/*.yaml; do
                       yq $file
+                      mvn
                       done;'''
     }
   }
