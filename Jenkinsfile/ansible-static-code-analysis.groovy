@@ -4,7 +4,7 @@ pipeline {
     agent any 
     tools {
       yq
-      maven 'MAVEN_HOME'
+      maven 
     }
 
     stages {
