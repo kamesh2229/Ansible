@@ -1,7 +1,8 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent any 
+    agent {
+        docker { image 'jenkins:latest' } 
 
     stages {
         stage('Checkout') {
