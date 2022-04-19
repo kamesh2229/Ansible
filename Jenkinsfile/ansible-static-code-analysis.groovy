@@ -2,10 +2,6 @@
 
 pipeline {
     agent any 
-    tools {
-      yq  'yq 4.24.5'
-      maven 'Maven 3.3.9' 
-    }
 
     stages {
         stage('Checkout') {
@@ -20,13 +16,8 @@ pipeline {
         stage('Static Analysis') {
             steps {
                 sh 'pwd'
-                sh '''#!/bin/bash
-                       export MAVEN_HOME=/opt/homebrew/Cellar/maven/3.8.5/libexec
-                       export PATH=$PATH:$MAVEN_HOME/bin
-                       for files in ${WORKSPACE}/*.yaml; do
-                       yq $file
-                       mvn
-                       done;'''
+                sh 'ansible-playbook -i hosts deploy-jenkins.yaml --private-key ../../Downloads/ansible-ec2-instance.pem'
+
     }
   }
  }
