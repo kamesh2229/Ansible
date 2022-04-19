@@ -19,7 +19,8 @@ pipeline {
                 sh 'pwd'
                 sh 'ansible-playbook -i hosts deploy-jenkins.yaml --private-key ../../Downloads/ansible-ec2-instance.pem'
 
-    }
+     }
+   }
   }
- }
+ } 
 }
