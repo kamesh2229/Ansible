@@ -3,7 +3,7 @@
 pipeline {
     agent {
         docker { image 'jenkins:latest' } 
-
+     }
     stages {
         stage('Checkout') {
          steps {
@@ -23,4 +23,4 @@ pipeline {
    }
   }
  } 
-}
+
