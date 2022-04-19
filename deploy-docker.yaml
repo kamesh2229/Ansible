@@ -1,13 +1,12 @@
 ---
 
-
 - hosts: all
   become: true
   vars_files:
    - vars/vars.yaml
   tasks:
-  - debug:
-    var: ansible_os_family
+  #- debug:
+  #  var: ansible_os_family
  
 
   - name: Show facts available on the system

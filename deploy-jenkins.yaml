@@ -1,42 +1,48 @@
 ---
 
-hosts: all
-become: true
-remote_user: ec2-user
-tasks:
-- name: Downloading Long term Jenkins Release
-  get_url:
-    url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
-    dest: /etc/yum.repos.d/jenkins.repo
+- hosts: all
+  become: true
+  remote_user: ec2-user
+  vars_files:
+    - vars/vars.yaml
+  tasks:
    
 
-- name: Import Jenkins key from url
-  ansible.builtin.rpm_key:
-    state: present
-    key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+  - name: Downloading Long term Jenkins Release
+
+    yum_repository:
+      name: jenkins
+      description: The Jenkins repository 
+      baseurl: "{{ jenkins_repo_url }}"
+      gpgcheck: no
+
+  - name: Import Jenkins key from url
+    ansible.builtin.rpm_key:
+      state: present
+      key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
  
-- name: yum update
-  yum:
-    name: '*'
-    state: latest
+  - name: yum update
+    yum:
+      name: '*'
+      state: latest
 
-- name: Install java
-  yum: 
-    name: java-11-openjdk-devel
-    state: present
+  - name: Install java
+    yum: 
+      name: "{{ jdk_version }}"
+      state: present
 
-- name: Install jenkins
-  yum:
-    name: jenkins
-    state: latest
+  - name: Install jenkins
+    yum:
+      name: jenkins
+      state: latest
 
 
-- name: daemon reload
-  ansible.builtin.systemd:
-    daemon_reload: yes
+  - name: daemon reload
+    ansible.builtin.systemd:
+      daemon_reload: yes
 
-- name: start jenkins
-  ansible.builtin.systemd:
-    name: jenkins
-    state: started
+  - name: start jenkins
+    ansible.builtin.systemd:
+      name: jenkins
+      state: started
    
