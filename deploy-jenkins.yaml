@@ -6,15 +6,11 @@
   vars_files:
     - vars/vars.yaml
   tasks:
-   
 
   - name: Downloading Long term Jenkins Release
-
-    yum_repository:
-      name: jenkins
-      description: The Jenkins repository 
-      baseurl: "{{ jenkins_repo_url }}"
-      gpgcheck: no
+    get_url:
+      url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+      dest: /etc/yum.repos.d/jenkins.repo
 
   - name: Import Jenkins key from url
     ansible.builtin.rpm_key:
