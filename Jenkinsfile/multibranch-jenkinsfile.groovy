@@ -1,5 +1,6 @@
 pipeline {
-  agent any
+  agent { image 'node:16.13.1-alpine' }
+}
 
   
   options {
@@ -16,10 +17,8 @@ pipeline {
     steps {
 
       sh ''' 
-
+       node --version
        java -version
-       mvn -version
-       ansible -version
 
        '''
 
