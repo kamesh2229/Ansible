@@ -1,40 +1,70 @@
 ---
 
-- hosts: all
+- name: "Install Docker on AWS EC2 Instance" 
+  hosts: all
   become: true
-  vars_files:
-   - vars/vars.yaml
   tasks:
-  #- debug:
-  #  var: ansible_os_family
- 
+    - name: Show facts available on the system
+      ansible.builtin.debug:
+        var: ansible_facts
 
-  - name: Show facts available on the system
-    ansible.builtin.debug:
-      var: ansible_facts
+    - name: update all package
+      yum: 
+        name: '*'
+        state: latest
+        update_only: yes
 
-  - name: "create yum repository for docker"
-    yum_repository:
-      name: docker-repo
-      description: "Repo for docker"
-      baseurl: "https://download.docker.com/linux/centos/7/x86_64/stable/"
-      enabled: yes
-      repo_gpgcheck: no
-    when: ansible_facts['os_family'] == 'RedHat'
+    - name: Install the required dependencies
+      yum:
+        name: "{{ packages }}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+        - python-pip
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - amazon-linux-extras
 
-  - name: Install Docker
-    yum:
-      name: '{{ item }}'
-      state: present
-    loop:
-      - slirp4netns
-      - container-selinux
-      - fuse-overlayfs
 
-  - name: Install Pip
-    yum:
-      name: "python3-pip"
-      state: present
-      update_cache: true
+    - name: Install docker-ce via amazon-linux-extra-packages
+      shell: "amazon-linux-extras enable python3.8 ansible2 docker"
+
+    - name: Clean yum metadata cache
+      command: yum clean metadata
+      args:
+        warn: false
+
+    - name: Ensure a list of yum packages are installed
+      yum:
+        name: "{{ packages }}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+        - python3.8
+        - ansible
+        - docker
+  
+
+    - name: Enable Docker CE service at start up
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Upgrade pip3
+      shell: "python3.8 -m pip install pip --upgrade"
+
+    - name: Ensure python pip packages are installed
+      pip:
+       name: "{{ packages }}"
+       executable: /usr/local/bin/pip3.8
+      vars:
+        packages:
+        - boto
+        - boto3
+        - docker-compose
 
 
