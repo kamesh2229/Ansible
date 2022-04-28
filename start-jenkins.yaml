@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Daemon reload
+    ansible.builtin.systemd:
+      daemon_reload: yes
+
+  - name: Checking Jenkins service status
+    ansible.builtin.systemd:
+      name: jenkins
+    register: jenkins_service_status
+    
+  - debug:
+      var: jenkins_service_status.status.ActiveState
+
+  - name: Start Jenkins
+    ansible.builtin.systemd:
+      name: jenkins
+      state: started
+    when: jenkins_service_status.status.ActiveState == "inactive"
+      
+    
